@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import pyxel
 from copy import copy
+from random import randint
 
 
 class Obj:
@@ -109,8 +110,8 @@ class Player(Ship):
 
 class EnemyShip(Ship):
 
-    def __init__(self, cords):
-        super().__init__(cords=cords, rotate='u', img_index=3)
+    def __init__(self, cords, enemy_type=0):
+        super().__init__(cords=cords, rotate='u', img_index=3 + enemy_type)
 
     def update(self):
         self.move_up()
@@ -127,16 +128,14 @@ class App:
 
         self.player = Player([128, 128])
         self.bullets = []
-        self.enemies = [
-            EnemyShip([20 + 50 * i, 250])
-            for i in range(4)
-        ]
+        self.enemies = []
 
     def update(self):
         self.keyboard()
         self.bullets = self.update_objs(self.bullets)
         self.enemies = self.update_objs(self.enemies)
         self.update_collision()
+        self.spawn_enemies()
 
     def update_objs(self, objs):
         survived_objs = []
@@ -154,6 +153,14 @@ class App:
                     bullet.is_destroyed = True
                     enemy.is_destroyed = True
                     self.player.score += 100
+
+    def spawn_enemies(self):
+        if pyxel.frame_count % 50 == 20:
+            x = randint(20, 200)
+            y = 250
+            enemy_type = randint(0, 4)
+            enemy = EnemyShip([x, y], enemy_type)
+            self.enemies.append(enemy)
 
     def keyboard(self):
         if pyxel.btnp(pyxel.KEY_Q):

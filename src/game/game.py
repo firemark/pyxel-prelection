@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import pyxel
+from copy import copy
 
 
 class Bullet:
@@ -10,11 +11,7 @@ class Bullet:
 
     @classmethod
     def from_player(cls, player):
-        x, y = player.cords
-        w = player.WIDTH_SPRITE
-        h = player.HEIGHT_SPRITE
-        cords = [x + w / 2, y + h / 2]
-        return cls(cords, player.rotate)
+        return cls(copy(player.cords), player.rotate)
 
     def update(self):
         if self.rotate == 'u':
@@ -38,10 +35,9 @@ class Bullet:
         pyxel.circ(x, y, 2, 10)
 
 
-class Player:
+class Ship:
     WIDTH_SPRITE = 32
     HEIGHT_SPRITE = 32
-
     ROTATE_INDEXES = {
         'u': 0,
         'l': 1,
@@ -49,17 +45,19 @@ class Player:
         'r': 3,
     }
 
-    def __init__(self, cords):
-        self.score = 0
+    def __init__(self, cords, rotate, img_index):
         self.cords = cords
-        self.rotate = 'u'
+        self.rotate = rotate
+        self.img_index = img_index
 
     def draw(self):
-        x, y = self.cords
         w = self.WIDTH_SPRITE
         h = self.HEIGHT_SPRITE
         u = self.ROTATE_INDEXES[self.rotate] * w
-        pyxel.blt(x, y, 0, u, 0, w, h, 11)
+        v = self.img_index * h
+        x = self.cords[0] - w / 2
+        y = self.cords[1] - h / 2
+        pyxel.blt(x, y, 0, u, v, w, h, 11)
 
     def move_up(self):
         self.cords[1] -= 5
@@ -78,6 +76,28 @@ class Player:
         self.rotate = 'r'
 
 
+class Player(Ship):
+
+    def __init__(self, cords):
+        super().__init__(cords=cords, rotate='u', img_index=0)
+        self.score = 0
+
+
+class EnemyShip(Ship):
+
+    def __init__(self, cords):
+        super().__init__(cords=cords, rotate='u', img_index=3)
+
+    def update(self):
+        self.move_up()
+
+    def is_alive(self):
+        x, y = self.cords
+        return (
+            x > 0 and x < 256
+            and y > 0 and y < 256
+        )
+
 class App:
 
     def run(self):
@@ -89,10 +109,15 @@ class App:
 
         self.player = Player([128, 128])
         self.bullets = []
+        self.enemies = [
+            EnemyShip([20 + 50 * i, 250])
+            for i in range(4)
+        ]
 
     def update(self):
         self.keyboard()
         self.bullets = self.update_objs(self.bullets)
+        self.enemies = self.update_objs(self.enemies)
 
     def update_objs(self, objs):
         survived_objs = []
@@ -125,5 +150,9 @@ class App:
         pyxel.cls(0)
         pyxel.text(0, 0, "Score: %d" % self.player.score, 7)
         self.player.draw()
-        for bullet in self.bullets:
-            bullet.draw()
+        self.draw_objs(self.bullets)
+        self.draw_objs(self.enemies)
+
+    def draw_objs(self, objs):
+        for obj in objs:
+            obj.draw()

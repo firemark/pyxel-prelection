@@ -3,10 +3,41 @@ import pyxel
 from copy import copy
 
 
-class Bullet:
+class Obj:
+
+    def __init__(self, cords):
+        self.cords = cords
+        self.is_destroyed = False
+
+    def is_alive(self):
+        if self.is_destroyed:
+            return False
+        x, y = self.cords
+        return (
+            x > 0 and x < 256
+            and y > 0 and y < 256
+        )
+
+    def has_collision(self, obj):
+        obj_x, obj_y = obj.cords
+        x, y = self.cords
+        w = self.WIDTH_SPRITE
+        h = self.HEIGHT_SPRITE
+
+        return (
+            obj_x > x - w / 2
+            and obj_x < x + w / 2
+            and obj_y > y - h / 2
+            and obj_y < y + h / 2
+        )
+
+
+class Bullet(Obj):
+    WIDTH_SPRITE = 2
+    HEIGHT_SPRITE = 2
 
     def __init__(self, cords, rotate):
-        self.cords = cords
+        super().__init__(cords)
         self.rotate = rotate
 
     @classmethod
@@ -23,19 +54,12 @@ class Bullet:
         elif self.rotate == 'r':
             self.cords[0] += 15
 
-    def is_alive(self):
-        x, y = self.cords
-        return (
-            x > 0 and x < 256
-            and y > 0 and y < 256
-        )
-
     def draw(self):
         x, y = self.cords
         pyxel.circ(x, y, 2, 10)
 
 
-class Ship:
+class Ship(Obj):
     WIDTH_SPRITE = 32
     HEIGHT_SPRITE = 32
     ROTATE_INDEXES = {
@@ -46,7 +70,7 @@ class Ship:
     }
 
     def __init__(self, cords, rotate, img_index):
-        self.cords = cords
+        super().__init__(cords)
         self.rotate = rotate
         self.img_index = img_index
 
@@ -91,12 +115,6 @@ class EnemyShip(Ship):
     def update(self):
         self.move_up()
 
-    def is_alive(self):
-        x, y = self.cords
-        return (
-            x > 0 and x < 256
-            and y > 0 and y < 256
-        )
 
 class App:
 
@@ -118,6 +136,7 @@ class App:
         self.keyboard()
         self.bullets = self.update_objs(self.bullets)
         self.enemies = self.update_objs(self.enemies)
+        self.update_collision()
 
     def update_objs(self, objs):
         survived_objs = []
@@ -127,6 +146,14 @@ class App:
                 survived_objs.append(obj)
 
         return survived_objs
+
+    def update_collision(self):
+        for bullet in self.bullets:
+            for enemy in self.enemies:
+                if bullet.has_collision(enemy) or enemy.has_collision(bullet):
+                    bullet.is_destroyed = True
+                    enemy.is_destroyed = True
+                    self.player.score += 100
 
     def keyboard(self):
         if pyxel.btnp(pyxel.KEY_Q):

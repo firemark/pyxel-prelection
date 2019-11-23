@@ -14,6 +14,18 @@ class Player:
         x, y = self.cords
         pyxel.blt(x, y, 0, 0, 0, self.WIDTH_SPRITE, self.HEIGHT_SPRITE)
 
+    def move_up(self):
+        self.cords[1] -= 10
+
+    def move_down(self):
+        self.cords[1] += 10
+
+    def move_left(self):
+        self.cords[0] -= 10
+
+    def move_right(self):
+        self.cords[0] += 10
+
 
 class App:
 
@@ -27,8 +39,19 @@ class App:
         self.player = Player([128, 128])
 
     def update(self):
+        self.keyboard()
+
+    def keyboard(self):
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
+        elif pyxel.btn(pyxel.KEY_UP):
+            self.player.move_up()
+        elif pyxel.btn(pyxel.KEY_DOWN):
+            self.player.move_down()
+        elif pyxel.btn(pyxel.KEY_LEFT):
+            self.player.move_left()
+        elif pyxel.btn(pyxel.KEY_RIGHT):
+            self.player.move_right()
 
     def draw(self):
         pyxel.cls(0)

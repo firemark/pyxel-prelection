@@ -33,6 +33,24 @@ class Obj:
         )
 
 
+class Explosion(Obj):
+
+    def __init__(self, cords):
+        super().__init__(cords)
+        self.time = 5
+
+    def update(self):
+        self.time -= 1
+
+    def is_alive(self):
+        return self.time > 0
+
+    def draw(self):
+        x, y = self.cords
+        r = self.time / 5 * 20
+        pyxel.circ(x, y, r, 7)
+
+
 class Bullet(Obj):
     WIDTH_SPRITE = 2
     HEIGHT_SPRITE = 2
@@ -148,12 +166,14 @@ class App:
         self.player = Player([128, 128])
         self.bullets = []
         self.enemies = []
+        self.animations = []
         pyxel.play(0, 3)
 
     def update(self):
         self.keyboard()
         self.bullets = self.update_objs(self.bullets)
         self.enemies = self.update_objs(self.enemies)
+        self.animations = self.update_objs(self.animations)
         self.update_collision()
         self.spawn_enemies()
 
@@ -173,6 +193,7 @@ class App:
                     bullet.is_destroyed = True
                     enemy.is_destroyed = True
                     self.player.score += 100
+                    self.animations.append(Explosion(enemy.cords))
                     pyxel.play(0, 1)
 
         if self.game_over:
@@ -182,6 +203,8 @@ class App:
             if enemy.has_collision(self.player) or self.player.has_collision(enemy):
                 enemy.is_destroyed = True
                 self.game_over = True
+                self.animations.append(Explosion(enemy.cords))
+                self.animations.append(Explosion(self.player.cords))
                 pyxel.play(1, 2)
 
 
@@ -231,6 +254,7 @@ class App:
 
         self.draw_objs(self.bullets)
         self.draw_objs(self.enemies)
+        self.draw_objs(self.animations)
 
     def draw_objs(self, objs):
         for obj in objs:

@@ -218,24 +218,24 @@ class App:
             self.enemies.append(enemy)
 
     def keyboard(self):
-        if pyxel.btnp(pyxel.KEY_Q):
+        if pyxel.btnp(pyxel.KEY_Q) or pyxel.btn(pyxel.GAMEPAD_1_SELECT):
             pyxel.quit()
             return
 
         if self.game_over:
-            if pyxel.btnp(pyxel.KEY_R):
+            if pyxel.btnp(pyxel.KEY_R) or pyxel.btn(pyxel.GAMEPAD_1_START):
                 self.setup_world()
             return
 
-        if pyxel.btn(pyxel.KEY_UP):
+        if pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD_1_UP):
             self.player.move_up()
-        if pyxel.btn(pyxel.KEY_DOWN):
+        if pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD_1_DOWN):
             self.player.move_down()
-        if pyxel.btn(pyxel.KEY_LEFT):
+        if pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD_1_LEFT):
             self.player.move_left()
-        if pyxel.btn(pyxel.KEY_RIGHT):
+        if pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD_1_RIGHT):
             self.player.move_right()
-        if pyxel.btnp(pyxel.KEY_SPACE, 0, 10):
+        if pyxel.btnp(pyxel.KEY_SPACE, 0, 10) or pyxel.btnp(pyxel.GAMEPAD_1_Y, 0, 10):
             if len(self.bullets) > 3:
                 return
             bullet = Bullet.from_player(self.player)
@@ -248,8 +248,8 @@ class App:
         if self.game_over:
             pyxel.text(80, 40, "GAME OVER", pyxel.frame_count % 16)
             pyxel.text(80, 50, "Total score: %d" % self.player.score, 8)
-            pyxel.text(80, 60, "Press Q to quit", 8)
-            pyxel.text(80, 70, "Press R to restart", 8)
+            pyxel.text(80, 60, "Press Q / SELECT to quit", 8)
+            pyxel.text(80, 70, "Press R / START to restart", 8)
         else:
             pyxel.text(0, 0, "Score: %d" % self.player.score, 7)
             self.player.draw()

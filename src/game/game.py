@@ -143,6 +143,7 @@ class App:
     def setup(self):
         pyxel.init(256, 256, title="SPACESHIP OMG!!!")
         pyxel.image(0).load(0, 0, "assets.png")
+        pyxel.image(1).load(0, 0, "background.png")
         pyxel.sound(0).set("a0", "t", "257", "f", 15)
         pyxel.sound(1).set("f0g1f2", "nnn", "373", "fvf", 20)
         pyxel.sound(2).set(
@@ -242,7 +243,8 @@ class App:
             pyxel.play(1, 0)
 
     def draw(self):
-        pyxel.cls(0)
+        pyxel.cls(2 if self.game_over else 1)
+        pyxel.blt(0, 0, 1, 0, 0, 256, 256, 0)
         if self.game_over:
             pyxel.text(80, 40, "GAME OVER", pyxel.frame_count % 16)
             pyxel.text(80, 50, "Total score: %d" % self.player.score, 8)

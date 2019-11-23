@@ -8,8 +8,8 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def setup(self):
-        pyxel.init(160, 120, caption="Hello Pyxel")
-        #pyxel.image(0).load(0, 0, "assets/pyxel_logo_38x16.png")
+        pyxel.init(256, 256, caption="SPACESHIP OMG!!!", border_color=0)
+        pyxel.image(0).load(0, 0, "assets.png")
 
     def update(self):
         if pyxel.btnp(pyxel.KEY_Q):
@@ -17,9 +17,10 @@ class App:
 
     def draw(self):
         pyxel.cls(0)
-        pyxel.text(55, 41, "Hello, Pyxel!", pyxel.frame_count % 16)
-        #pyxel.blt(61, 66, 0, 0, 0, 38, 16)
-
+        #pyxel.text(55, 41, "Hello, Pyxel!", pyxel.frame_count % 16)
+        pyxel.blt(64, 64, 0, 0, 0, 32, 32)
+        pyxel.blt(64, 128, 0, 32, 32, 32, 32)
+        pyxel.blt(128, 128, 0, 64, 64, 32, 32)
 
 
 if __name__ == "__main__":

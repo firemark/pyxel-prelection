@@ -35,9 +35,10 @@ class Obj:
 
 class Explosion(Obj):
 
-    def __init__(self, cords):
+    def __init__(self, cords, score=None):
         super().__init__(cords)
-        self.time = 5
+        self.time = 15
+        self.score = score
 
     def update(self):
         self.time -= 1
@@ -47,8 +48,12 @@ class Explosion(Obj):
 
     def draw(self):
         x, y = self.cords
-        r = self.time / 5 * 20
-        pyxel.circ(x, y, r, 7)
+        if self.score:
+            pyxel.text(x, y, str(self.score), 10)
+
+        r = (self.time - 10) / 5 * 20
+        if r > 0:
+            pyxel.circ(x, y, r, 7)
 
 
 class Bullet(Obj):
@@ -88,10 +93,11 @@ class Ship(Obj):
         'r': 3,
     }
 
-    def __init__(self, cords, rotate, img_index):
+    def __init__(self, cords, rotate, speed, img_index):
         super().__init__(cords)
         self.rotate = rotate
         self.img_index = img_index
+        self.speed = speed
 
     def draw(self):
         w = self.WIDTH_SPRITE
@@ -103,33 +109,34 @@ class Ship(Obj):
         pyxel.blt(x, y, 0, u, v, w, h, 11)
 
     def move_up(self):
-        self.cords[1] -= 5
+        self.cords[1] -= self.speed
         self.rotate = 'u'
 
     def move_down(self):
-        self.cords[1] += 5
+        self.cords[1] += self.speed
         self.rotate = 'd'
 
     def move_left(self):
-        self.cords[0] -= 5
+        self.cords[0] -= self.speed
         self.rotate = 'l'
 
     def move_right(self):
-        self.cords[0] += 5
+        self.cords[0] += self.speed
         self.rotate = 'r'
 
 
 class Player(Ship):
 
     def __init__(self, cords):
-        super().__init__(cords=cords, rotate='u', img_index=0)
+        super().__init__(cords=cords, rotate='u', speed=5, img_index=0)
         self.score = 0
 
 
 class EnemyShip(Ship):
 
-    def __init__(self, cords, enemy_type=0):
-        super().__init__(cords=cords, rotate='u', img_index=3 + enemy_type)
+    def __init__(self, cords, enemy_type=0, speed_mult=1):
+        speed = randint(3, 6) * speed_mult
+        super().__init__(cords=cords, rotate='u', speed=speed, img_index=3 + enemy_type)
 
     def update(self):
         self.move_up()
@@ -163,6 +170,7 @@ class App:
         self.setup_world()
 
     def setup_world(self):
+        self.time = 0
         self.game_over = False
         self.player = Player([128, 128])
         self.bullets = []
@@ -171,6 +179,8 @@ class App:
         pyxel.play(0, 3)
 
     def update(self):
+        if not self.game_over and pyxel.frame_count % 10 == 0:
+            self.time += 1
         self.keyboard()
         self.bullets = self.update_objs(self.bullets)
         self.enemies = self.update_objs(self.enemies)
@@ -193,8 +203,9 @@ class App:
                 if bullet.has_collision(enemy) or enemy.has_collision(bullet):
                     bullet.is_destroyed = True
                     enemy.is_destroyed = True
-                    self.player.score += 100
-                    self.animations.append(Explosion(enemy.cords))
+                    score = 100 + self.time * enemy.speed // 50 + enemy.cords[1]
+                    self.player.score += score
+                    self.animations.append(Explosion(enemy.cords, score))
                     pyxel.play(0, 1)
 
         if self.game_over:
@@ -210,10 +221,12 @@ class App:
 
 
     def spawn_enemies(self):
-        if pyxel.frame_count % 50 == 20:
+        spawn_rate = max(50 - self.time // 3, 10)
+        if pyxel.frame_count % spawn_rate == 5:
             x = randint(20, 200)
             y = 250
             enemy_type = randint(0, 4)
+            speed_mult = 1 + min(self.time / 50, 3)
             enemy = EnemyShip([x, y], enemy_type)
             self.enemies.append(enemy)
 
@@ -252,6 +265,7 @@ class App:
             pyxel.text(80, 70, "Press R / START to restart", 8)
         else:
             pyxel.text(0, 0, "Score: %d" % self.player.score, 7)
+            pyxel.text(0, 8, "Time: %d" % self.time, 7)
             self.player.draw()
 
         self.draw_objs(self.bullets)

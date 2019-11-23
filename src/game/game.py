@@ -125,10 +125,29 @@ class App:
     def setup(self):
         pyxel.init(256, 256, title="SPACESHIP OMG!!!")
         pyxel.image(0).load(0, 0, "assets.png")
+        pyxel.sound(0).set("a0", "t", "257", "f", 15)
+        pyxel.sound(1).set("f0g1f2", "nnn", "373", "fvf", 20)
+        pyxel.sound(2).set(
+            "f0g1f2 e0f1e2 d0e1d2 d2d2",  # notes
+            "s",  # tones
+            "777 555 333 21",   # volumes
+            "fff nnn vvv vv",   # effects
+            30,  # speed
+        )
+        pyxel.sound(3).set(
+            "e0f1e2 f0g1f2 f3",  # notes
+            "s",  # tones
+            "555 777 7",   # volumes
+            "n",   # effects
+            20,  # speed
+        )
+        self.setup_world()
 
+    def setup_world(self):
         self.player = Player([128, 128])
         self.bullets = []
         self.enemies = []
+        pyxel.play(0, 3)
 
     def update(self):
         self.keyboard()
@@ -153,6 +172,8 @@ class App:
                     bullet.is_destroyed = True
                     enemy.is_destroyed = True
                     self.player.score += 100
+                    pyxel.play(0, 1)
+
 
     def spawn_enemies(self):
         if pyxel.frame_count % 50 == 20:
@@ -166,6 +187,7 @@ class App:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
             return
+
         if pyxel.btn(pyxel.KEY_UP):
             self.player.move_up()
         if pyxel.btn(pyxel.KEY_DOWN):
@@ -179,6 +201,7 @@ class App:
                 return
             bullet = Bullet.from_player(self.player)
             self.bullets.append(bullet)
+            pyxel.play(1, 0)
 
     def draw(self):
         pyxel.cls(0)

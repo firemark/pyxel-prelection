@@ -6,25 +6,40 @@ class Player:
     WIDTH_SPRITE = 32
     HEIGHT_SPRITE = 32
 
+    ROTATE_INDEXES = {
+        'u': 0,
+        'l': 1,
+        'd': 2,
+        'r': 3,
+    }
+
     def __init__(self, cords):
         self.score = 0
         self.cords = cords
+        self.rotate = 'u'
 
     def draw(self):
         x, y = self.cords
-        pyxel.blt(x, y, 0, 0, 0, self.WIDTH_SPRITE, self.HEIGHT_SPRITE)
+        w = self.WIDTH_SPRITE
+        h = self.HEIGHT_SPRITE
+        u = self.ROTATE_INDEXES[self.rotate] * w
+        pyxel.blt(x, y, 0, u, 0, w, h, 11)
 
     def move_up(self):
         self.cords[1] -= 10
+        self.rotate = 'u'
 
     def move_down(self):
         self.cords[1] += 10
+        self.rotate = 'd'
 
     def move_left(self):
         self.cords[0] -= 10
+        self.rotate = 'l'
 
     def move_right(self):
         self.cords[0] += 10
+        self.rotate = 'r'
 
 
 class App:

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 START=06d3eaa38ac4101876d1d2101f876350d708a908
 END=cbf9ac2fbde4459568d942f9075cddad85fae550
-COMMITS=($(git log --pretty=tformat:%H $START..$END))
+COMMITS=($START $(git log --pretty=tformat:%H $START..$END | tac))
 
 LEN="${#COMMITS[@]}"
 for ((i=0;i<LEN;i++)); do

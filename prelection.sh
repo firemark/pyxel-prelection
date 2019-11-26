@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-COMMITS=(
-    06d3eaa e91f013 1afc536 5715774 66cdf9a 
-    9f86bcd 206c42d 3c95a28 4de16bc fa7fe11 
-    db30b07 9aa0904 18a3bf2 cbf9ac2
-) 
-#COMMITS=(06d3eaa e91f013) 
+START=06d3eaa38ac4101876d1d2101f876350d708a908
+END=cbf9ac2fbde4459568d942f9075cddad85fae550
+COMMITS=($(git log --pretty=tformat:%H $START..$END))
 
 LEN="${#COMMITS[@]}"
 for ((i=0;i<LEN;i++)); do

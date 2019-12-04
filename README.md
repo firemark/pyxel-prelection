@@ -14,7 +14,7 @@
 ## Advantages
 
 * Very simple API - you can learn in one day
-* Documentation is a 1 file (README file of engine)
+* Documentation is a 1 file (README file in github)
 * sprites support
 * basic shapes drawing support
 * 8 bit music / sound

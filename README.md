@@ -4,7 +4,7 @@
 
 ## Why Pixel?
 
-1. It's very simple to learn (for pro & newbies) (I make a game in 4 hours! in pure python!)
+1. It's very simple to learn (for pro & newbies) (I made a game in 4 hours! in pure python!)
 2. Have a many simple examples to copy&edit
 3. Have a nice ascii font
 4. 8bit sound generator is amazing
@@ -56,9 +56,13 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 * 256×256 screen size (with autoscalling so don't worry)
 * Rotating / mirroring sprites
 * No particles system
+* Random bugs like segmentation fault or floating point error :-(
 
 ## Conclusion
 
 * is not a unreal or unity engine
 * is not a game maker too (But is very similar to first versions of game maker)
-* TODO
+* Makes fun!
+* In small amount of time we can make a nice, simple game
+* I love 8 bit so much <3
+* The good way to learn python and programming

@@ -4,11 +4,11 @@ END=cbf9ac2fbde4459568d942f9075cddad85fae550
 COMMITS=($START $(git log --pretty=tformat:%H $START..$END | tac))
 
 show_commit() {
-    firefox https://github.com/firemark/pyxel-prelection/commit/$1 2> /dev/null
+    #firefox https://github.com/firemark/pyxel-prelection/commit/$1 2> /dev/null
 
-    #LINE=$(python -c "print('#'*100)")
-    #FORMAT="format:%n$(expr $i + 1). %s%n$LINE%n%n"
-    #git show --pretty="$FORMAT" | delta --dark -w 180 | less -RS
+    LINE=$(python -c "print('#'*100)")
+    FORMAT="format:%n$(expr $i + 1). %s%n$LINE%n%n"
+    git show $1 --pretty="$FORMAT" | delta --dark -w 180 | less -RS
 }
 
 LEN="${#COMMITS[@]}"

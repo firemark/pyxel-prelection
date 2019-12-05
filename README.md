@@ -29,6 +29,18 @@ Sound: Randomized
 
 Engine: [Pyxel](https://github.com/kitao/pyxel)
 
+## Limits (special or not)
+
+* Documentation don't have a examples directly
+* Documentation don't describe arguments and what function/method do.
+* Support only 16 colors (image assets too!)
+* Have a limited banks with sounds and images
+* Don't have a collision system
+* 256×256 screen size (with autoscalling so don't worry)
+* Rotating / mirroring sprites
+* No particles system
+* Random bugs like segmentation fault or floating point error :-(
+
 ## Stages
 
 1. [init game](https://github.com/firemark/pyxel-prelection/commit/06d3eaa)
@@ -45,18 +57,6 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 12. [add background](https://github.com/firemark/pyxel-prelection/commit/9aa0904)
 13. [support gamepad](https://github.com/firemark/pyxel-prelection/commit/18a3bf2)
 14. [improving gameplay](https://github.com/firemark/pyxel-prelection/commit/cbf9ac2)
-
-## Limits (special or not)
-
-* Documentation don't have a examples directly
-* Documentation don't describe arguments and what function/method do.
-* Support only 16 colors (image assets too!)
-* Have a limited banks with sounds and images
-* Don't have a collision system
-* 256×256 screen size (with autoscalling so don't worry)
-* Rotating / mirroring sprites
-* No particles system
-* Random bugs like segmentation fault or floating point error :-(
 
 ## Conclusion
 

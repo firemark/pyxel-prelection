@@ -57,7 +57,7 @@ class App:
         pyxel.text(x + w + 2, y + h // 2 - 2, 'H', 8)
 
         # function
-        pyxel.text(128, 120, 'pyxel.blt(X, Y, U, V, W, H, COL)', 7)
+        pyxel.text(128, 120, 'pyxel.blt(X,Y,BANK,U,V,W,H)', 7)
 
 if __name__ == "__main__":
     app = App()

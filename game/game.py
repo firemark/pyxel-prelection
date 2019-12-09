@@ -144,6 +144,7 @@ class App:
         self.setup_world()
 
     def setup_world(self):
+        self.game_over = False
         self.player = Player([128, 128])
         self.bullets = []
         self.enemies = []
@@ -174,6 +175,15 @@ class App:
                     self.player.score += 100
                     pyxel.play(0, 1)
 
+        if self.game_over:
+            return
+
+        for enemy in self.enemies:
+            if enemy.has_collision(self.player) or self.player.has_collision(enemy):
+                enemy.is_destroyed = True
+                self.game_over = True
+                pyxel.play(1, 2)
+
 
     def spawn_enemies(self):
         if pyxel.frame_count % 50 == 20:
@@ -186,6 +196,11 @@ class App:
     def keyboard(self):
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
+            return
+
+        if self.game_over:
+            if pyxel.btnp(pyxel.KEY_R):
+                self.setup_world()
             return
 
         if pyxel.btn(pyxel.KEY_UP):
@@ -205,8 +220,15 @@ class App:
 
     def draw(self):
         pyxel.cls(0)
-        pyxel.text(0, 0, "Score: %d" % self.player.score, 7)
-        self.player.draw()
+        if self.game_over:
+            pyxel.text(80, 40, "GAME OVER", pyxel.frame_count % 16)
+            pyxel.text(80, 50, "Total score: %d" % self.player.score, 8)
+            pyxel.text(80, 60, "Press Q to quit", 8)
+            pyxel.text(80, 70, "Press R to restart", 8)
+        else:
+            pyxel.text(0, 0, "Score: %d" % self.player.score, 7)
+            self.player.draw()
+
         self.draw_objs(self.bullets)
         self.draw_objs(self.enemies)
 

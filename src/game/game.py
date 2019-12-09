@@ -13,7 +13,7 @@ class Bullet:
         x, y = player.cords
         w = player.WIDTH_SPRITE
         h = player.HEIGHT_SPRITE
-        cords = [x, y]
+        cords = [x + w / 2, y + h / 2]
         return cls(cords, player.rotate)
 
     def update(self):

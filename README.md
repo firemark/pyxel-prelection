@@ -21,12 +21,6 @@
 * tilemaps
 * built in sprite / map / music editor (But I haven't used it)
 
-## Items
-
-Assets: https://guardian5.itch.io/blue-green-and-red-spacecraft-asset (Thx!!)
-Sound: Randomized
-Engine: [Pyxel](https://github.com/kitao/pyxel)
-
 ## Limitations (by design or not)
 
 * Documentation doesn't have examples directly
@@ -38,6 +32,12 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 * No rotating / mirroring sprites
 * No particles system
 * Random bugs like segmentation fault or floating point error :-(
+
+## Items
+
+Assets: https://guardian5.itch.io/blue-green-and-red-spacecraft-asset (Thx!!)
+Sound: Randomized
+Engine: [Pyxel](https://github.com/kitao/pyxel)
 
 ## Stages
 

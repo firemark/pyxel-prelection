@@ -4,40 +4,38 @@
 
 ## Why Pixel?
 
-1. It's very simple to learn (for pro & newbies) (I made a game in 4 hours! in pure python!)
-2. Have a many simple examples to copy&edit
-3. Have a nice ascii font
+1. It's very simple to learn (for pros & newbies) (I've made a game in 4 hours! in pure python!)
+2. Has many simple examples to copy&edit
+3. Has a nice ascii font
 4. 8bit sound generator is amazing
 5. It's fast (using opengl)
 6. Nice to learn programming in python
 
 ## Advantages
 
-* Very simple API - you can learn in one day
+* Very simple API - you can learn it in one day
 * Documentation is a 1 file (README file in github)
 * sprites support
 * basic shapes drawing support
 * 8 bit music / sound
 * tilemaps
-* bultin sprite / map / music editor (But I didn't used)
+* built in sprite / map / music editor (But I haven't used it)
 
 ## Items
 
 Assets: https://guardian5.itch.io/blue-green-and-red-spacecraft-asset (Thx!!)
-
 Sound: Randomized
-
 Engine: [Pyxel](https://github.com/kitao/pyxel)
 
-## Limits (special or not)
+## Limitations (by design or not)
 
-* Documentation don't have a examples directly
-* Documentation don't describe arguments and what function/method do.
-* Support only 16 colors (image assets too!)
-* Have a limited banks with sounds and images
-* Don't have a collision system
+* Documentation doesn't have examples directly
+* Documentation doesn't describe arguments and what functions/methods do.
+* Supports only 16 colors (image assets too!)
+* Has a limited banks with sounds and images
+* Doesn't have a collision system
 * 256×256 screen size (with autoscalling so don't worry)
-* Rotating / mirroring sprites
+* No rotating / mirroring sprites
 * No particles system
 * Random bugs like segmentation fault or floating point error :-(
 
@@ -60,9 +58,10 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 
 ## Conclusion
 
-* is not a unreal or unity engine
-* is not a game maker too (But is very similar to first versions of game maker)
-* Makes fun!
-* In small amount of time we can make a nice, simple game
+* It's not unreal or unity engine
+* It's not game maker too (But is very similar to first versions of game maker)
+* Is a lot of fun!
+* In short time we can make a nice, simple game
 * I love 8 bit so much <3
-* The good way to learn python and programming
+* A good way to learn python and programming
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 START=06d3eaa38ac4101876d1d2101f876350d708a908
-END=98c2eba3141af413e3fae8e99f9bd476d1c6fdd5
+END=e943556e6d5114dbebe798d5a081ca5571abe05c
 COMMITS=($START $(git log --pretty=tformat:%H $START..$END | tac))
 
 show_commit() {

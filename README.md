@@ -2,7 +2,7 @@
 
 ![gameplay](gameplay.gif)
 
-## Why Pixel?
+## Why Pyxel?
 
 1. It's very simple to learn (for pros & newbies) (I've made a game in 4 hours! in pure python!)
 2. Has many simple examples to copy&edit

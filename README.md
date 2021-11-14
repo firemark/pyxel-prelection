@@ -62,7 +62,7 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 
 * It's not unreal or unity engine
 * It's not game maker too (But is very similar to first versions of game maker)
-* Is a lot of fun!
+* It's a lot of fun!
 * In short time we can make a nice, simple game
 * I love 8 bit so much <3
 * A good way to learn python and programming

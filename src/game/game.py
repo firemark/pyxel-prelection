@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import pyxel
 from copy import copy
-from random import randint
+from random import randint, random
 
 
 class Obj:
@@ -33,12 +33,34 @@ class Obj:
         )
 
 
+class Precious(Obj):
+    WIDTH_SPRITE = 1
+    HEIGHT_SPRITE = 1
+
+    def __init__(self, cords, factor, size):
+        super().__init__(cords)
+        self.time = 60
+        self.factor = factor
+        self.size = size
+
+    def update(self):
+        self.time -= 1
+
+    def is_alive(self):
+        return not self.is_destroyed and self.time > 0
+
+    def draw(self):
+        x, y = self.cords
+        pyxel.circ(x, y, self.size, (self.time // 2) % 16)
+
+
 class Explosion(Obj):
 
-    def __init__(self, cords, score=None):
+    def __init__(self, cords, score=None, color=7):
         super().__init__(cords)
         self.time = 15
         self.score = score
+        self.color = color
 
     def update(self):
         self.time -= 1
@@ -53,7 +75,7 @@ class Explosion(Obj):
 
         r = (self.time - 10) / 5 * 20
         if r > 0:
-            pyxel.circ(x, y, r, 7)
+            pyxel.circ(x, y, r, self.color)
 
 
 class Bullet(Obj):
@@ -167,6 +189,7 @@ class App:
             "n",   # effects
             20,  # speed
         )
+        pyxel.sound(4).set("a2g3f3", "ppp", "252", "fff", 30)
         self.setup_world()
 
     def setup_world(self):
@@ -176,6 +199,7 @@ class App:
         self.bullets = []
         self.enemies = []
         self.animations = []
+        self.preciouses = []
         pyxel.play(0, 3)
 
     def update(self):
@@ -185,8 +209,12 @@ class App:
         self.bullets = self.update_objs(self.bullets)
         self.enemies = self.update_objs(self.enemies)
         self.animations = self.update_objs(self.animations)
+        self.preciouses = self.update_objs(self.preciouses)
         self.update_collision()
         self.spawn_enemies()
+
+        if not self.game_over:
+            self.spawn_bonus()
 
     def update_objs(self, objs):
         survived_objs = []
@@ -203,13 +231,21 @@ class App:
                 if bullet.has_collision(enemy) or enemy.has_collision(bullet):
                     bullet.is_destroyed = True
                     enemy.is_destroyed = True
-                    score = 100 + self.time * enemy.speed // 50 + enemy.cords[1]
+                    score = int(100 + self.time * enemy.speed // 50 + enemy.cords[1])
                     self.player.score += score
                     self.animations.append(Explosion(enemy.cords, score))
                     pyxel.play(0, 1)
 
         if self.game_over:
             return
+
+        for my_precious in self.preciouses:
+            if my_precious.has_collision(self.player) or self.player.has_collision(my_precious):
+                my_precious.is_destroyed = True
+                score = int(my_precious.factor * (my_precious.time * 2 + my_precious.size * 5))
+                self.player.score += score
+                self.animations.append(Explosion(my_precious.cords, score, color=15))
+                pyxel.play(1, 4)
 
         for enemy in self.enemies:
             if enemy.has_collision(self.player) or self.player.has_collision(enemy):
@@ -229,6 +265,17 @@ class App:
             speed_mult = 1 + min(self.time / 50, 3)
             enemy = EnemyShip([x, y], enemy_type)
             self.enemies.append(enemy)
+
+    def spawn_bonus(self):
+        if pyxel.frame_count % 20 == 0 and random() < 0.2:
+            player_x, player_y = self.player.cords
+            x = randint(32, 224)
+            y = randint(32, 224)
+            distance = abs(x - player_x) + abs(y - player_y)
+            factor = 1 + distance / 128 + self.time / 5
+            size = randint(2, 5)
+            my_precious = Precious([x, y], factor, size)
+            self.preciouses.append(my_precious)
 
     def keyboard(self):
         if pyxel.btnp(pyxel.KEY_Q) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_BACK):
@@ -271,6 +318,7 @@ class App:
         self.draw_objs(self.bullets)
         self.draw_objs(self.enemies)
         self.draw_objs(self.animations)
+        self.draw_objs(self.preciouses)
 
     def draw_objs(self, objs):
         for obj in objs:

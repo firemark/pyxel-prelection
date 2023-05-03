@@ -59,7 +59,11 @@ class App:
         # function
         pyxel.text(128, 120, 'pyxel.blt(X,Y,BANK,U,V,W,H)', 7)
 
-if __name__ == "__main__":
+
+def main():
     app = App()
     app.setup()
     app.run()
+
+if __name__ == "__main__":
+    main()

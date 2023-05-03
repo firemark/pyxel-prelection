@@ -2,13 +2,24 @@
 
 ![gameplay](gameplay.gif)
 
+## Install
+
+Requires `libsdl2-dev` and [`pipx`](https://pypa.github.io/pipx/).
+
+In this directory:
+
+```bash
+pipx install -e .
+pyxel-prelection-game
+```
+
 ## Why Pyxel?
 
-1. It's very simple to learn (for pros & newbies) (I've made a game in 4 hours! in pure python!)
+1. It's very simple to learn (for pro & newbies) (I've made a game in 4 hours! in pure python!)
 2. Has many simple examples to copy&edit
 3. Has a nice ascii font
 4. 8bit sound generator is amazing
-5. It's fast (using opengl)
+5. It's fast (using opengl, sdl2 in rust)
 6. Nice to learn programming in python
 
 ## Advantages
@@ -41,22 +52,24 @@ Engine: [Pyxel](https://github.com/kitao/pyxel)
 
 ## Stages
 
-1. [init game](https://github.com/firemark/pyxel-prelection/commit/06d3eaa38ac4101876d1d2101f876350d708a908)
-2. [change assets and draw sprites](https://github.com/firemark/pyxel-prelection/commit/e91f013ad0359f5b3d4fa6c6359ddc0d527678b8)
-3. [add player object](https://github.com/firemark/pyxel-prelection/commit/1afc536cfd3a555cf7dd5f886178313f6ee3e748)
-4. [add player moving](https://github.com/firemark/pyxel-prelection/commit/57157740be2d08240d176aa330579e254c669759)
-5. [add rotating](https://github.com/firemark/pyxel-prelection/commit/66cdf9a9e3d558053eeb194b3b6245e975e10007)
-6. [add bullets](https://github.com/firemark/pyxel-prelection/commit/9e1b7c6acd4dd89506ef87f73ea964d19f923ece)
-7. [compute better cords of bullet](https://github.com/firemark/pyxel-prelection/commit/d6d2fdf903016e8b83d6478781f2797d97ae1227)
-8. [add enemies](https://github.com/firemark/pyxel-prelection/commit/e2d92020e08e0507c2a97da2dac377020c95742a)
-9. [add collision with enemy and bullets](https://github.com/firemark/pyxel-prelection/commit/092f89296ea5c455f7d81400c20f60408c7577e0)
-10. [add spawning enemies](https://github.com/firemark/pyxel-prelection/commit/7d85309b3f5e9c1bfb96cdb52e0e5ab1847059b4)
-11. [add music (OMG!)](https://github.com/firemark/pyxel-prelection/commit/09b24e559b5d32d32f5a0e64dfb9fd7a1e9e23d6)
-12. [support game over](https://github.com/firemark/pyxel-prelection/commit/af9bf1c1d240c84e4e8484e2fc8f2b03e75f9eaf)
-13. [add animations](https://github.com/firemark/pyxel-prelection/commit/ea3ab3390c624b4c8f63da9b81b5384a200250c7)
-14. [add background](https://github.com/firemark/pyxel-prelection/commit/c60aa3cbd9052d1b19372d2839ad24ebc07d2a35)
-15. [support gamepad](https://github.com/firemark/pyxel-prelection/commit/bb1886de23b846a418cd3b47a5033dedcc5c5a1a)
-16. [improving gameplay](https://github.com/firemark/pyxel-prelection/commit/e943556e6d5114dbebe798d5a081ca5571abe05c)
+1. [init game](https://github.com/firemark/pyxel-prelection/commit/6000aff4aea00a51111c17b90ecd84a391432339)
+2. [change assets and draw sprites](https://github.com/firemark/pyxel-prelection/commit/8b02c392c5a13cf3cbca3581cb2fcb4376afd28e)
+3. [add player object](https://github.com/firemark/pyxel-prelection/commit/61ec52f8996e7e3b7c810173f2b23404027b4362)
+4. [add player moving](https://github.com/firemark/pyxel-prelection/commit/13118e9182ed1b5ba7a96f6ffa456e19e2409a3d)
+5. [add rotating](https://github.com/firemark/pyxel-prelection/commit/0e6298906852f65b9151e93897c13e2f12ca1169)
+6. [add bullets](https://github.com/firemark/pyxel-prelection/commit/59c78dba1a7fa6800f124408521df4c9f292cb6c)
+7. [compute better cords of bullet](https://github.com/firemark/pyxel-prelection/commit/788c1423833ef62167b8091a1b777557edf22e15)
+8. [add enemies](https://github.com/firemark/pyxel-prelection/commit/323119d14e170e10388f7380980c1d3e5d25c537)
+9. [add collision with enemy and bullets](https://github.com/firemark/pyxel-prelection/commit/4c8d9cdba7fb0f9f4ae35f5dfced3e8d3d87d1bc)
+10. [add spawning enemies](https://github.com/firemark/pyxel-prelection/commit/1c55dcde554a6b174f89653fc9e294465113acb1)
+11. [add music (OMG!)](https://github.com/firemark/pyxel-prelection/commit/3922ace55b2febab7338429400087110c47b44c4)
+12. [support game over](https://github.com/firemark/pyxel-prelection/commit/f12b5e084bd12dea8c7a57dde4b8209caf6ea8aa)
+13. [add animations](https://github.com/firemark/pyxel-prelection/commit/786faace3cc9c717d8814592ec1265404932601a)
+14. [add background](https://github.com/firemark/pyxel-prelection/commit/45b3d132a9e4d521245e991b495091919bab13aa)
+15. [support gamepad](https://github.com/firemark/pyxel-prelection/commit/a47d99782ec37681ed76ca99bac4b51456622853)
+16. [improving gameplay](https://github.com/firemark/pyxel-prelection/commit/557552956e4ad2c4bc55a260e2cb19e3ef3f09b2)
+17. [MY PRECIOUS!](https://github.com/firemark/pyxel-prelection/commit/126afa309efad0ff36c7162e2fd071eca2a9d78c)
+18. [MY BOOM PRECIOUS!](https://github.com/firemark/pyxel-prelection/commit/c42ec86d9b632452fa6e1905965546f781632ec4)
 
 ## Conclusion
 

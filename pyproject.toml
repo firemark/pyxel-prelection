@@ -1,0 +1,16 @@
+[project]
+name = "pyxel-prelection"
+version = "3"
+description = "Pyxel features for prelection"
+authors = [{name = "Firemark"}]
+dependencies = ["pyxel==1.9.7"]
+requires-python = ">=3.8"
+readme = "README.md"
+
+[project.scripts]
+pyxel-prelection-game = "game.__main__:main"
+pyxel-prelection-blt-demo = "game.blt_demo:main"
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=50"]

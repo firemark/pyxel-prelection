@@ -2,6 +2,10 @@
 
 ![gameplay](gameplay.gif)
 
+## Web version
+
+[click](https://firemark.github.io/pyxel-prelection)
+
 ## Install
 
 Requires `libsdl2-dev` and [`pipx`](https://pypa.github.io/pipx/).

@@ -424,3 +424,9 @@ class App:
     def draw_objs(self, objs):
         for obj in objs:
             obj.draw()
+
+
+if __name__ == "__main__":
+    app = App()
+    app.setup()
+    app.run()

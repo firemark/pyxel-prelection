@@ -19,17 +19,18 @@ pyxel-prelection-game
 
 ## Why Pyxel?
 
-1. It's very simple to learn (for pro & newbies) (I've made a game in 4 hours! in pure python!)
+1. It's very simple to learn (for pro & newbies) (I've made the game in 4 hours! in pure python!)
 2. Has many simple examples to copy&edit
 3. Has a nice ascii font
 4. 8bit sound generator is amazing
-5. It's fast (using opengl, sdl2 in rust)
-6. Nice to learn programming in python
+5. It's fast (using sdl2 in rust)
+6. Nice to learn a programming in python
+7. It allows to build standalone web/exe games.
 
 ## Advantages
 
 * Very simple API - you can learn it in one day
-* Documentation is a 1 file (README file in github)
+* Documentation is a single file (README file in github)
 * sprites support
 * basic shapes drawing support
 * 8 bit music / sound
@@ -38,21 +39,21 @@ pyxel-prelection-game
 
 ## Limitations (by design or not)
 
-* Documentation doesn't have examples directly
-* Documentation doesn't describe arguments and what functions/methods do.
-* Supports only 16 colors (image assets too!)
-* Has a limited banks with sounds and images
-* Doesn't have a collision system
-* 256×256 screen size (with autoscalling so don't worry)
-* No rotating / mirroring sprites
-* No particles system
+* ~~Documentation doesn't have examples directly~~
+* ~~Documentation doesn't describe arguments and what functions/methods do.~~
+* Supports only 16 colors (image assets too!).
+* Has limited banks with sounds and images.
+* Doesn't have a collision system.
+* 256×256 screen size (with autoscalling so don't worry).
+* No rotating / mirroring sprites.
+* No particles system.
 * Random bugs like segmentation fault or floating point error :-(
 
 ## Items
 
-Assets: https://guardian5.itch.io/blue-green-and-red-spacecraft-asset (Thx!!)
-Sound: Randomized
-Engine: [Pyxel](https://github.com/kitao/pyxel)
+* Assets: https://guardian5.itch.io/blue-green-and-red-spacecraft-asset (Thx!!)
+* Sound: Randomized
+* Engine: [Pyxel](https://github.com/kitao/pyxel)
 
 ## Stages
 

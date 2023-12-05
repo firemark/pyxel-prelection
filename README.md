@@ -75,6 +75,8 @@ pyxel-prelection-game
 16. [improving gameplay](https://github.com/firemark/pyxel-prelection/commit/557552956e4ad2c4bc55a260e2cb19e3ef3f09b2)
 17. [MY PRECIOUS!](https://github.com/firemark/pyxel-prelection/commit/126afa309efad0ff36c7162e2fd071eca2a9d78c)
 18. [MY BOOM PRECIOUS!](https://github.com/firemark/pyxel-prelection/commit/c42ec86d9b632452fa6e1905965546f781632ec4)
+19. [spawn enemy group with turning action](https://github.com/firemark/pyxel-prelection/commit/9c16ddff24067cda65773071afb1ca79c68d8287)
+20. [add moving background](https://github.com/firemark/pyxel-prelection/commit/d09df36ce9eb72b5edcc9ef0ec7f682c0d30f46f)
 
 ## Conclusion
 

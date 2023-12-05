@@ -161,14 +161,59 @@ class Player(Ship):
         self.score = 0
 
 
+class MoveLogic:
+
+    def move(self, ship: "EnemyShip"):
+        raise NotImplementedError("move")
+    
+class MoveForward(MoveLogic):
+
+    def move(self, ship: "EnemyShip"):
+        ship.move_up()
+
+class MoveLTurn(MoveLogic):
+
+    def __init__(self, direction):
+        self.direction = direction
+
+    def move(self, ship: "EnemyShip"):
+        if ship.distance_traveled < 120:
+            ship.move_up()
+        elif self.direction == "left":
+            ship.move_left()
+        elif self.direction == "right":
+            ship.move_right()
+
+class MoveUTurn(MoveLTurn):
+
+    def move(self, ship: "EnemyShip"):
+        if ship.distance_traveled < 140:
+            super().move(ship)
+        else:
+            ship.move_down()
+
+
+class MoveZigZagTurn(MoveLTurn):
+
+    def move(self, ship: "EnemyShip"):
+        if ship.distance_traveled < 140:
+            super().move(ship)
+        elif ship.distance_traveled < 200:
+            ship.move_up()
+        else:
+            super().move(ship)
+
+
 class EnemyShip(Ship):
 
-    def __init__(self, cords, enemy_type=0, speed_mult=1):
-        speed = randint(3, 6) * speed_mult
+    def __init__(self, cords, enemy_type=0, speed=1, move_logic: MoveLogic = MoveForward()):
+        self.distance_traveled = 0
+        self.move_logic = move_logic
         super().__init__(cords=cords, rotate='u', speed=speed, img_index=3 + enemy_type)
 
     def update(self):
-        self.move_up()
+        self.move_logic.move(self)
+        self.distance_traveled += self.speed
 
 
 class App:
@@ -277,13 +322,45 @@ class App:
         self.animations.append(Explosion(enemy.cords, score))
 
     def spawn_enemies(self):
-        spawn_rate = max(50 - self.time // 3, 10)
-        if pyxel.frame_count % spawn_rate == 5:
+        spawn_rate = max(50 - self.time // 3, 20)
+        if pyxel.frame_count % spawn_rate != 5:
+            return
+
+        speed = 1.0 + random() * 2.0 + min(self.time / 100, 3.0)
+        probability = random()
+
+        if self.time > 20 and probability < 0.1:
+            x = randint(120, 140)
+            y = 250
+            shift = randint(20, 50)
+            outer_cls = MoveZigZagTurn if random() < 0.5 else MoveUTurn
+            inner_cls = MoveUTurn if random() < 0.5 else MoveLTurn
+            outer = randint(0, 4), speed * 1.2
+            inner = randint(0, 4), speed * 1.1
+            center = randint(0, 4), speed
+            self.enemies += [
+                EnemyShip([x - shift * 2, y], *outer, outer_cls("left")),
+                EnemyShip([x - shift, y], *inner, inner_cls("left")),
+                EnemyShip([x + shift, y], *inner, inner_cls("right")),
+                EnemyShip([x + shift * 2, y], *outer, outer_cls("right")),
+            ]
+        elif self.time > 10 and probability < 0.3:
+            x = randint(120, 140)
+            y = 250
+            shift = randint(20, 50) * 2
+            outer_cls = MoveZigZagTurn if random() < 0.5 else MoveLTurn
+            outer = randint(0, 4), speed * 1.1
+            center = randint(0, 4), speed
+            self.enemies += [
+                EnemyShip([x - shift, y], *outer, outer_cls("left")),
+                EnemyShip([x, y], *center),
+                EnemyShip([x + shift, y], *outer, outer_cls("right")),
+            ]
+        else:
             x = randint(20, 200)
             y = 250
             enemy_type = randint(0, 4)
-            speed_mult = 1 + min(self.time / 50, 3)
-            enemy = EnemyShip([x, y], enemy_type)
+            enemy = EnemyShip([x, y], enemy_type, speed)
             self.enemies.append(enemy)
 
     def spawn_bonus(self):

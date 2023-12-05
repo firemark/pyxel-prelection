@@ -402,7 +402,10 @@ class App:
 
     def draw(self):
         pyxel.cls(2 if self.game_over else 1)
-        pyxel.blt(0, 0, 1, 0, 0, 256, 256, 0)
+        
+        bg_offset = pyxel.frame_count % 220
+        pyxel.blt(0, bg_offset - 220, 1, 0, 0, 256, 256, 0)
+        pyxel.blt(0, bg_offset, 1, 0, 0, 256, 256, 0)
         if self.game_over:
             pyxel.text(80, 40, "GAME OVER", pyxel.frame_count % 16)
             pyxel.text(80, 50, "Total score: %d" % self.player.score, 8)
